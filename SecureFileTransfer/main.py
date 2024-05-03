@@ -166,11 +166,17 @@ class FileTransferUI(QMainWindow):
         self.result_text.setGeometry(20, 120, 380, 250)
 
     def browse_file(self):
+        """
+        Opens a file dialog to browse and select a file.
+        """
         file_path, _ = QFileDialog.getOpenFileName(self, "Open File", "", "All Files (*);;Text Files (*.txt)")
         if file_path:
             self.file_path_entry.setText(file_path)
 
     def send_file(self):
+        """
+        Sends the selected file to the server.
+        """
         file_path = self.file_path_entry.text()
         if os.path.exists(file_path):
             try:
@@ -183,6 +189,9 @@ class FileTransferUI(QMainWindow):
             QMessageBox.critical(self, "Error", "File not found.")
 
     def search_file(self):
+        """
+        Searches for a file on the server using the provided hash.
+        """
         file_hash = self.hash_entry.text()
         if file_hash:
             found_file_path = self.server.find_file(file_hash)
@@ -194,10 +203,16 @@ class FileTransferUI(QMainWindow):
             QMessageBox.critical(self, "Error", "Please enter a hash to search for.")
 
     def copy_hash(self):
+        """
+        Copies the hash value from the hash entry field to the clipboard.
+        """
         hash_value = self.hash_entry.text()
         pyperclip.copy(hash_value)
 
     def paste_hash(self):
+        """
+        Pastes the copied hash value from the clipboard to the hash entry field.
+        """
         hash_value = pyperclip.paste()
         self.hash_entry.setText(hash_value)
 
